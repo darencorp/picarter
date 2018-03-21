@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Picarter</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static "node_modules/uikit/dist/css/uikit.min.css" %}"/>
+    <script src="{% static "node_modules/uikit/dist/js/uikit.min.js" %}"></script>
+</head>
+<body>
+    <app-root></app-root>
+
+    <script src="{% static "js/dist/inline.bundle.js" %}"></script>
+    <script src="{% static "js/dist/polyfills.bundle.js" %}"></script>
+    <script src="{% static "js/dist/styles.bundle.js" %}"></script>
+    <script src="{% static "js/dist/vendor.bundle.js" %}"></script>
+    <script src="{% static "js/dist/main.bundle.js" %}"></script>
+</body>
+</html>

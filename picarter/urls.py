@@ -20,5 +20,9 @@ from picarter_app import views
 
 urlpatterns = [
     path('', views.index),
+    path('login', views.sign_in),
+    path('check_email', views.check_email),
+    path('register', views.register),
+    path('logout', views.logout_user),
     path('admin/', admin.site.urls)
 ]

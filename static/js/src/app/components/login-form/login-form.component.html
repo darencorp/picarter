@@ -1,0 +1,20 @@
+<app-email-form></app-email-form>
+<div id="login-form-l" class="uk-modal" uk-modal>
+  <div class="uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <div class="uk-modal-title">Sign In</div>
+    </div>
+    <div class="uk-modal-body">
+      <div class="uk-form uk-flex uk-flex-column uk-flex-middle">
+        <input class="uk-width-2-3 uk-input" placeholder="Email" [(ngModel)]="email">
+        <input class="uk-width-2-3 uk-input uk-margin-top" placeholder="Password" type="password"
+               [(ngModel)]="password">
+        <div class="uk-button uk-button-primary uk-margin-top" (click)="signIn()">Sign In</div>
+      </div>
+      <div class="uk-link uk-text-small uk-text-center uk-margin-top" (click)="openEmailForm()">
+        Sign Up
+      </div>
+    </div>
+  </div>
+</div>

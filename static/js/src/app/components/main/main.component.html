@@ -14,8 +14,8 @@
           </div>
         </div>
 
-        <div class="uk-button" (click)="openLoginForm()">Sign In</div>
-        <div class="uk-button" (click)="logout()">Logout</div>
+        <div *ngxPermissionsExcept="['user_view']" class="uk-button" (click)="openLoginForm()">Sign In</div>
+        <div *ngxPermissionsOnly="['user_view']" class="uk-button" (click)="logout()">Logout</div>
 
       </div>
 

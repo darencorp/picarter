@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule, HttpClientXsrfModule} from '@angular/common/http'
 import {FormsModule} from '@angular/forms';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 import {AppComponent} from './components/app/app.component';
 import {UserComponent} from './components/user/user.component';
@@ -24,11 +25,11 @@ import {PasswordFormComponent} from './components/password-form/password-form.co
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'csrftoken',
       headerName: 'X-CSRFToken',
     }),
-    FormsModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -38,7 +39,8 @@ import {PasswordFormComponent} from './components/password-form/password-form.co
         path: 'some',
         component: UserComponent
       }
-    ])
+    ]),
+    NgxPermissionsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

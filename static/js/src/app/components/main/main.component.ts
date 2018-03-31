@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
-declare var UIkit : any;
+import {Component, OnInit} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
+import {HttpClient} from '@angular/common/http';
+import {NgxPermissionsService, NgxRolesService} from 'ngx-permissions';
+import {Router} from "@angular/router";
+import {AppComponent} from "../app/app.component";
+
+declare var UIkit: any;
 
 @Component({
   selector: 'app-main',
@@ -10,9 +14,12 @@ declare var UIkit : any;
 })
 export class MainComponent implements OnInit {
 
-  constructor(private sanitizer: DomSanitizer, private http: HttpClient) {}
+  constructor(private sanitizer: DomSanitizer, private http: HttpClient, private router: Router, private permissionsService: NgxPermissionsService) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.updatePermissions()
+  }
 
   photos = [
     '1.jpg',
@@ -26,6 +33,16 @@ export class MainComponent implements OnInit {
     '9.jpg',
   ];
 
+  updatePermissions() {
+    this.permissionsService.flushPermissions();
+
+    this.http.post('/permissions', {}).subscribe((res) => {
+      if (res['status']) {
+        this.permissionsService.loadPermissions(res['permissions']);
+      }
+    })
+  }
+
   updateUrl(url) {
     return this.sanitizer.bypassSecurityTrustStyle('url(/static/img/' + url + ')');
   }
@@ -36,7 +53,8 @@ export class MainComponent implements OnInit {
 
   logout() {
     this.http.post("/logout", {}).subscribe((res) => {
-      console.log(res)
+      this.updatePermissions()
     })
+
   }
 }

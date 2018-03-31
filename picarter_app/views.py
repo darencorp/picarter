@@ -1,18 +1,30 @@
 import json
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import Permission
 from django.core.validators import validate_email
-from django.middleware.csrf import get_token
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
-from django.contrib.auth.models import User
-
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+
+from picarter_app.models import Profile
+
+
 def index(request):
     return render(request, "index.html")
+
+
+@csrf_exempt
+def get_permissions(request):
+    user = request.user
+
+    if user.is_authenticated:
+        permissions = [x.codename for x in Permission.objects.filter(user=user)]
+        return JsonResponse({'status': True, 'permissions': permissions})
+
+    return JsonResponse({'status': False})
 
 
 @csrf_exempt
@@ -30,16 +42,12 @@ def sign_in(request):
     if email is None or password is None:
         return JsonResponse({'status': False})
 
-    try:
-        validate_email(str(email))
-    except Exception as e:
-        return JsonResponse({'status': False})
-
     user = authenticate(username=email, password=password)
 
     if user is not None:
         login(request, user)
-        return JsonResponse({'status': True})
+        permissions = [x.codename for x in Permission.objects.filter(user=user)]
+        return JsonResponse({'status': True, 'permissions': permissions})
 
     return JsonResponse({'status': False})
 
@@ -65,7 +73,7 @@ def check_email(request):
     except Exception as e:
         return JsonResponse({'status': False})
 
-    if not User.objects.filter(email=str(email)).exists():
+    if not Profile.objects.filter(email=str(email)).exists():
         r.session['email'] = str(email)
         return JsonResponse({'status': True})
 
@@ -87,11 +95,14 @@ def register(request):
     if password is None:
         return JsonResponse({'status': False})
 
-    User.objects.create_user(email, email, password)
+    user = Profile.objects.create_user(email, email, password)
+    permission = Permission.objects.get(name='Show user view')
+    user.user_permissions.add(permission)
+    user.save()
+
     return JsonResponse({'status': True})
 
 
 def logout_user(request):
-    csrf_token = get_token(request)
     logout(request)
     return JsonResponse({'status': True})

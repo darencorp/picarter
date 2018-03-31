@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
+AUTH_USER_MODEL = 'picarter_app.Profile'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'picarter_app'
 ]
 
 MIDDLEWARE = [

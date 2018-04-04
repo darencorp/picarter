@@ -4,23 +4,28 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule, HttpClientXsrfModule} from '@angular/common/http'
 import {FormsModule} from '@angular/forms';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { CookieService } from 'ngx-cookie-service';
 
 import {AppComponent} from './components/app/app.component';
-import {UserComponent} from './components/user/user.component';
 import {MainComponent} from './components/main/main.component';
-import {LoginFormComponent} from './components/login-form/login-form.component';
-import {EmailFormComponent} from './components/email-form/email-form.component';
-import {PasswordFormComponent} from './components/password-form/password-form.component';
+import {LoginFormComponent} from './components/forms/login-form/login-form.component';
+import {EmailFormComponent} from './components/forms/email-form/email-form.component';
+import {PasswordFormComponent} from './components/forms/password-form/password-form.component';
+import { LibraryComponent } from './components/library/library.component';
+import { AccountComponent } from './components/account/account.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
     MainComponent,
     LoginFormComponent,
     EmailFormComponent,
-    PasswordFormComponent
+    PasswordFormComponent,
+    LibraryComponent,
+    AccountComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -36,13 +41,17 @@ import {PasswordFormComponent} from './components/password-form/password-form.co
         component: MainComponent
       },
       {
-        path: 'some',
-        component: UserComponent
+        path: 'library',
+        component: LibraryComponent
+      },
+      {
+        path: 'account',
+        component: AccountComponent
       }
-    ]),
+    ], {useHash: true}),
     NgxPermissionsModule.forRoot()
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

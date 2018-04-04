@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+declare var UIkit: any;
 
 @Component({
   selector: 'app-password-form',
@@ -17,7 +18,8 @@ export class PasswordFormComponent implements OnInit {
 
   signUp() {
     this.http.post('/register', {password: this.password}).subscribe((res) => {
-      console.log(res);
+      this.password = '';
+      UIkit.modal("#password-form-l").hide();
     });
   }
 }

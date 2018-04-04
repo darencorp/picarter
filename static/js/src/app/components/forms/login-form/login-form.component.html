@@ -5,16 +5,16 @@
     <div class="uk-modal-header">
       <div class="uk-modal-title">Sign In</div>
     </div>
-    <div class="uk-modal-body">
-      <div class="uk-form uk-flex uk-flex-column uk-flex-middle">
-        <input class="uk-width-2-3 uk-input" placeholder="Email" [(ngModel)]="email">
+    <form class="uk-modal-body uk-flex uk-flex-column uk-flex-middle" (submit)="signIn()">
+      <div class="uk-width-1-1 uk-form uk-flex uk-flex-column uk-flex-middle">
+        <input class="uk-width-2-3 uk-input" placeholder="Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
         <input class="uk-width-2-3 uk-input uk-margin-top" placeholder="Password" type="password"
-               [(ngModel)]="password">
-        <div class="uk-button uk-button-primary uk-margin-top" (click)="signIn()">Sign In</div>
+               [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
       </div>
+      <button class="uk-button uk-button-primary uk-margin-top">Sign In</button>
       <div class="uk-link uk-text-small uk-text-center uk-margin-top" (click)="openEmailForm()">
         Sign Up
       </div>
-    </div>
+    </form>
   </div>
 </div>

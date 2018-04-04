@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {NgxPermissionsService} from "ngx-permissions";
-declare var UIkit : any;
+import {AppComponent} from "../../app/app.component";
+import {$} from "protractor";
+
+declare var UIkit: any;
 
 
 @Component({
@@ -15,7 +18,7 @@ export class LoginFormComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor(private http: HttpClient, private router: Router, private permissionsService: NgxPermissionsService) {
+  constructor(private http: HttpClient, private router: Router, private permissionsService: NgxPermissionsService, private app: AppComponent) {
   }
 
   ngOnInit() {
@@ -24,15 +27,13 @@ export class LoginFormComponent implements OnInit {
   signIn() {
     this.http.post("/login", {email: this.email, password: this.password}).subscribe((res) => {
       if (res['status'] == true) {
-        this.permissionsService.loadPermissions(res['permissions']);
-        UIkit.modal("#login-form-l").hide()
-        // this.router.navigateByUrl('/some', { skipLocationChange: true })
+        location.reload()
       }
-    })
+    });
   }
 
   openEmailForm() {
-    UIkit.modal("#email-form-l").show()
+    UIkit.modal("#email-form-l").show();
   }
 
 }

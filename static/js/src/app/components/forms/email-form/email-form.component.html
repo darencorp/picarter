@@ -6,12 +6,12 @@
     <div class="uk-modal-header">
       <div class="uk-modal-title">Enter your email</div>
     </div>
-    <div class="uk-modal-body">
+    <form class="uk-modal-body" (submit)="openPasswordForm()">
       <div class="uk-form uk-flex uk-flex-column uk-flex-middle">
-        <input class="uk-width-4-5 uk-input" placeholder="Email" [(ngModel)]="email">
+        <input class="uk-width-4-5 uk-input" placeholder="Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
 
-        <div class="uk-button uk-button-primary uk-margin-top" (click)="openPasswordForm()">Next</div>
+        <button class="uk-button uk-button-primary uk-margin-top">Next</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>

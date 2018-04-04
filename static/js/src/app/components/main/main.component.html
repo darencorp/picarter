@@ -1,28 +1,7 @@
-<app-login-form></app-login-form>
+<div uk-spinner="ratio: 4" class="uk-position-absolute uk-position-center" [hidden]="!loading"></div>
 
-<div id="up-l" class=" uk-width-1-1 uk-flex uk-flex-middle uk-flex-column">
-  <div class="uk-width-1-1 uk-card uk-card-default uk-flex uk-flex-center">
-    <div class="uk-width-2-3 uk-flex" uk-scrollspy="cls:uk-animation-fade">
-      <div class="uk-width-3-5 uk-margin-top uk-margin-small-left">
-        <h2>Picarter</h2>
-      </div>
-      <div class="uk-margin-medium-left uk-flex uk-flex-middle uk-float-right">
-        <div class="uk-margin-left">
-          <div class="uk-inline">
-            <a class="uk-form-icon uk-form-icon-flip" href="#" uk-icon="icon: search"></a>
-            <input class="uk-input uk-form-small" type="text">
-          </div>
-        </div>
-
-        <div *ngxPermissionsExcept="['user_view']" class="uk-button" (click)="openLoginForm()">Sign In</div>
-        <div *ngxPermissionsOnly="['user_view']" class="uk-button" (click)="logout()">Logout</div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <div class="uk-margin-top uk-width-3-4 uk-flex uk-flex-column">
+<div class="uk-width-1-1 uk-flex uk-flex-middle uk-flex-column" [hidden]="loading">
+  <div class="uk-margin-top uk-width-3-4 uk-flex uk-flex-column min-z-index">
     <div class="uk-background-cover uk-panel uk-flex uk-flex-center uk-flex-middle uk-height-medium"
          style="background-image: url(/static/img/2.jpg);"></div>
     <div
@@ -37,12 +16,16 @@
 
   <div id="down-l" class="uk-margin-large-top uk-margin-small-bottom uk-flex uk-flex-center">
 
-    <div class="uk-width-5-6 uk-child-width-1-3@m" uk-grid
-         uk-scrollspy="cls: uk-animation-fade; target: > div > .uk-card; delay: 100; repeat: true">
+    <div *ngIf="!loading" class="uk-width-5-6 uk-child-width-1-3@m" uk-grid
+         uk-scrollspy="cls: uk-animation-fade; target: > div > div >  a > .uk-card; delay: 100; repeat: true">
 
       <div *ngFor="let i of photos">
-        <div class="uk-card uk-card-default uk-card-body uk-background-cover img-height"
-             [style.background-image]="updateUrl(i)">
+        <div uk-lightbox>
+          <a class="uk-link-heading" [href]="'/static/img/' + i">
+            <div class="uk-card uk-card-default uk-card-body uk-background-cover img-height"
+                 [style.background-image]="updateUrl(i)">
+            </div>
+          </a>
         </div>
       </div>
     </div>

@@ -1,7 +1,28 @@
-{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% block title %}Picarter{% endblock %}
+    <title>Picarter</title>
 
-{% block main %}
+    <link rel="icon" href="{% static "img/favicon.png" %}">
+    <base href="/">
+    
+</head>
+
+<body class="uk-width-1-1 uk-height-1-1">
     <app-root></app-root>
-{% endblock %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "node_modules/uikit/dist/css/uikit.min.css" %}"/>
+    <script src="{% static "node_modules/uikit/dist/js/uikit.min.js" %}"></script>
+    <script src="{% static "node_modules/uikit/dist/js/uikit-icons.min.js" %}"></script>
+
+    <script src="{% static "js/dist/inline.bundle.js" %}"></script>
+    <script src="{% static "js/dist/polyfills.bundle.js" %}"></script>
+    <script src="{% static "js/dist/styles.bundle.js" %}"></script>
+    <script src="{% static "js/dist/vendor.bundle.js" %}"></script>
+    <script src="{% static "js/dist/main.bundle.js" %}"></script>
+</body>
+</html>

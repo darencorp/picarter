@@ -1,3 +1,11 @@
 .img-height {
     height: 12em;
-}  
+}
+
+.max-z-index {
+  z-index: 10;
+}
+
+.min-z-index {
+  z-index: -10;
+}

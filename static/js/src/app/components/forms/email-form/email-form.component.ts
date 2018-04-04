@@ -21,6 +21,7 @@ export class EmailFormComponent implements OnInit {
   openPasswordForm() {
     this.http.post('/check_email', {email: this.email}).subscribe((res) => {
       if (res['status']) {
+        this.email = ''
         UIkit.modal("#password-form-l").show();
       }
     });

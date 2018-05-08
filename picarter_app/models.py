@@ -10,6 +10,8 @@ class Profile(AbstractUser):
             ("user_view", "Show user view"),
         )
 
+    avatar = models.CharField(max_length=200, default='')
+
 
 class Album(models.Model):
     name = models.CharField(max_length=120)

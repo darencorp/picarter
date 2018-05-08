@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {NgxPermissionsService} from "ngx-permissions";
 import {AppComponent} from "../../app/app.component";
 import {$} from "protractor";
+import {UserService} from "../../../services/user.service";
 
 declare var UIkit: any;
 
@@ -11,14 +12,16 @@ declare var UIkit: any;
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.css'],
+  providers: [UserService]
 })
 export class LoginFormComponent implements OnInit {
 
   email: string;
   password: string;
 
-  constructor(private http: HttpClient, private router: Router, private permissionsService: NgxPermissionsService, private app: AppComponent) {
+  constructor(private user: UserService, private http: HttpClient,
+              private permissionsService: NgxPermissionsService) {
   }
 
   ngOnInit() {

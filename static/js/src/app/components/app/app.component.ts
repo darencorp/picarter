@@ -1,10 +1,9 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NgxPermissionsService} from "ngx-permissions";
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from "@angular/router";
-import {emit} from "cluster";
-import {AccountComponent} from "../account/account.component";
-import {SharedService} from "../../services/shared.service";
+import {CookieService} from "ngx-cookie-service";
+import {UserService} from "../../services/user.service";
 declare var UIkit: any;
 
 
@@ -12,17 +11,17 @@ declare var UIkit: any;
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService]
+  providers: [UserService]
 })
 
 export class AppComponent implements OnInit {
 
   loading = true;
 
-  constructor(private sharedService: SharedService, private http: HttpClient, private permissionsService: NgxPermissionsService, private router: Router) {
+  constructor(private user: UserService, private cookieService: CookieService, private http: HttpClient, private permissionsService: NgxPermissionsService, private router: Router) {
     router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event)
-    })
+    });
   }
 
   ngOnInit() {

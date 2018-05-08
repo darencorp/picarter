@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
+
 declare var UIkit: any;
 
 @Component({
@@ -25,5 +26,4 @@ export class LibraryComponent implements OnInit {
   openEmailForm() {
     UIkit.modal("#email-form-l").show()
   }
-
 }

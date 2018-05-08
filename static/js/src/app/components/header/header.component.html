@@ -18,7 +18,9 @@
 
         <div>
           <div *ngxPermissionsOnly="['user_view']" class="">
-            <button class="uk-button" type="button">Profile</button>
+            <div>
+              <button class="uk-button">Profile</button>
+            </div>
             <div uk-dropdown="pos: bottom-justify" class="max-z-index">
               <ul class="uk-nav uk-dropdown-nav">
                 <li><a (click)="changeRoute('library')">Library</a></li>

@@ -2,13 +2,51 @@
 
   <div *ngIf="!is_logged_in" class="uk-width-1-1 uk-height-1-1">
     <div class="uk-flex uk-flex-middle uk-flex-center uk-height-large uk-margin-top">
-      You can't load this page. Please &nbsp;<a (click)="openLoginForm()"> Log In </a> &nbsp; or &nbsp;<a (click)="openEmailForm()"> Sign Up </a>
+      You can't load this page. Please &nbsp;<a (click)="openLoginForm()"> Log In </a> &nbsp; or &nbsp;<a
+      (click)="openEmailForm()"> Sign Up </a>
     </div>
   </div>
 
-  <div *ngIf="is_logged_in">
-    <div class="uk-flex uk-flex-middle uk-flex-center uk-height-large uk-margin-top">
-      You are loggined in. (Account)
+  <div *ngIf="is_logged_in" class="uk-flex uk-flex-center">
+    <div class="uk-width-3-4 uk-margin-large-top">
+      <div class="uk-width-1-1 uk-flex uk-flex-column uk-flex-middle">
+        <div class="uk-width-1-1 uk-flex uk-flex-center">
+          <div class="uk-text-center uk-width-2-5 uk-link uk-margin-small-left">
+            <div class="uk-width-2-3 uk-inline-clip uk-transition-toggle uk-border-circle">
+              <div class="uk-width-1-1 js-upload" uk-form-custom>
+                <input type="file" (change)="onFileChange($event)">
+                <img *ngIf="user.avatar == null" src="/static/img/user.png">
+                <div class="uk-width-1-1 uk-card uk-card-default uk-card-body uk-background-cover img-height"
+                     [style.background-image]="getUrl()">
+                </div>
+                <div class="uk-transition-slide-bottom uk-position-bottom uk-overlay uk-overlay-primary">
+                  <p class="uk-h6 uk-margin-remove">Change avatar</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <a class="uk-icon-link" uk-icon="file-edit" (click)="editProfile()"></a>
+          </div>
+        </div>
+        <div class="uk-margin-top uk-flex uk-flex-column uk-flex-middle">
+          <div class="uk-flex">
+            <h2 *ngIf="!edit" class="uk-h2">{{ user.fname }} {{ user.lname }}</h2>
+            <input class="uk-input uk-margin-small-right" *ngIf="edit" [(ngModel)]="fname" placeholder="First name">
+            <input class="uk-input" *ngIf="edit" [(ngModel)]="lname" placeholder="Last name">
+          </div>
+          <div class="uk-margin-top uk-button uk-button-primary" *ngIf="edit" (click)="changeName()">Save</div>
+        </div>
+        <div>
+          <h4 class="uk-h4" [ngClass]="{'uk-margin-top': edit}">nazar.mandebura@gmail.com</h4>
+        </div>
+        <div>
+          <div class="uk-button uk-button-primary uk-margin-xlarge-top">Change password</div>
+        </div>
+        <div>
+          <div class="uk-button uk-button-link uk-text-danger uk-margin-small-top">Delete account</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

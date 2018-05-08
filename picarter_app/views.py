@@ -1,4 +1,7 @@
+import datetime
 import json
+import os
+import shutil
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Permission
@@ -54,9 +57,6 @@ def sign_in(request):
 
 @csrf_exempt
 def check_email(request):
-    if request.user.is_authenticated:
-        pass
-
     r = request
     body = json.loads(r.body)
 
@@ -105,4 +105,60 @@ def register(request):
 
 def logout_user(request):
     logout(request)
+    return JsonResponse({'status': True})
+
+
+def change_avatar(request):
+    r = request
+
+    img = r.FILES['img']
+
+    if img is None:
+        return JsonResponse({'status': False})
+
+    exist_img = Profile.objects.filter(username=r.user).first().avatar
+
+    if exist_img != '':
+        filename = str(os.path.dirname(__file__)) + '/../static/img/users/' + str(r.user) + '/' + exist_img
+
+        if os.path.isfile(filename):
+            os.remove(filename)
+
+    file_type = img.name.split('.')[-1]
+    current_date = str(datetime.datetime.now()).replace('.', '').replace(' ', '').replace(':', '')
+    filename = '{0}_{1}.{2}'.format(r.user, current_date, file_type).replace(' ', '')
+    file_path = str(os.path.dirname(__file__)) + '/../static/img/users/' + str(r.user) + '/'
+
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+
+    file = img.file
+
+    with open(file_path + filename, 'wb') as output_file:
+        shutil.copyfileobj(file, output_file)
+
+    Profile.objects.select_for_update().filter(username=r.user).update(avatar=filename)
+
+    return JsonResponse({'status': True})
+
+
+def user(requset):
+    user = Profile.objects.filter(username=requset.user).first()
+
+    logged_user = {
+        'fname': user.first_name,
+        'lname': user.last_name,
+        'email': user.email,
+        'avatar': user.avatar
+    }
+
+    return JsonResponse({'user': logged_user})
+
+
+def change_name(request):
+    r = request
+    body = json.loads(r.body)
+    Profile.objects.select_for_update().filter(username=r.user).update(first_name=body['fname'],
+                                                                       last_name=body['lname'])
+
     return JsonResponse({'status': True})

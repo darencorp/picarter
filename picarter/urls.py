@@ -25,5 +25,8 @@ urlpatterns = [
     path('check_email', views.check_email),
     path('register', views.register),
     path('logout', views.logout_user),
+    path('change_avatar', views.change_avatar),
+    path('change_name', views.change_name),
+    path('user', views.user),
     path('admin/', admin.site.urls)
 ]

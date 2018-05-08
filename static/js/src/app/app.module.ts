@@ -14,6 +14,7 @@ import {PasswordFormComponent} from './components/forms/password-form/password-f
 import { LibraryComponent } from './components/library/library.component';
 import { AccountComponent } from './components/account/account.component';
 import { HeaderComponent } from './components/header/header.component';
+import { AfterRegisterComponent } from './components/after-register/after-register.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { HeaderComponent } from './components/header/header.component';
     PasswordFormComponent,
     LibraryComponent,
     AccountComponent,
-    HeaderComponent
+    HeaderComponent,
+    AfterRegisterComponent
   ],
   imports: [
     BrowserModule,
